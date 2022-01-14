@@ -1,0 +1,39 @@
+﻿@page
+@model asp.teamtaco.pages.channelmainModel
+@{
+    ViewData["Title"] = "Main Channel";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Main channel</h1>
+
+    <br>
+
+    <h2>Subscriber count</h2>
+    <h3 id="subCount"></h3>
+
+    <script>
+
+        const youtubeKey = 'AIzaSyCRWLA7dR94N3eiiB9ZG_QzUNgX8Enwfsg';
+        const youtubeUser = 'UC-Jmeb2hW7-Orithpwby0Bg';
+        const subCount = document.getElementById('subCount');
+
+        let getSubscribers = () => {
+
+            fetch(`https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${youtubeUser}&key=${youtubeKey}`)
+            .then(response => {
+                return response.json()
+            })
+            .then(data => {
+                //console.log(data)
+                subCount.innerText = data["items"][0].statistics.subscriberCount;
+            })
+
+        }
+
+        getSubscribers();
+
+
+
+    </script>
+</div>
